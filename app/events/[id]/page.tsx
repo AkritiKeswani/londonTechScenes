@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { format, parseISO } from "date-fns";
-import { Calendar, Clock, MapPin, ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 interface EventDetailPageProps {
@@ -56,34 +56,25 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
 
             {/* Event Details */}
             <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <Calendar className="h-5 w-5 text-primary mt-0.5" />
-                <div>
-                  <div className="font-medium">Date</div>
-                  <div className="text-muted-foreground">
-                    {format(parseISO(event.date), "EEEE, MMMM d, yyyy")}
-                  </div>
+              <div>
+                <div className="font-medium mb-1">Date</div>
+                <div className="text-muted-foreground">
+                  {format(parseISO(event.date), "EEEE, MMMM d, yyyy")}
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <Clock className="h-5 w-5 text-primary mt-0.5" />
-                <div>
-                  <div className="font-medium">Time</div>
-                  <div className="text-muted-foreground">
-                    {event.start_time}
-                    {event.end_time && ` - ${event.end_time}`}
-                  </div>
+              <div>
+                <div className="font-medium mb-1">Time</div>
+                <div className="text-muted-foreground">
+                  {event.start_time}
+                  {event.end_time && ` - ${event.end_time}`}
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary mt-0.5" />
-                <div>
-                  <div className="font-medium">Venue</div>
-                  <div className="text-muted-foreground">{event.venue}</div>
-                  <div className="text-sm text-muted-foreground">{event.location}</div>
-                </div>
+              <div>
+                <div className="font-medium mb-1">Venue</div>
+                <div className="text-muted-foreground">{event.venue}</div>
+                <div className="text-sm text-muted-foreground">{event.location}</div>
               </div>
             </div>
 
@@ -97,7 +88,6 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                     rel="noopener noreferrer"
                   >
                     Register for Event
-                    <ExternalLink className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
               </div>

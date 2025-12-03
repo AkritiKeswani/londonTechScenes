@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Calendar, Users, MapPin } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -23,13 +22,12 @@ export function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button asChild size="lg" className="text-base px-8">
+            <Button asChild size="lg" className="px-8">
               <Link href="#events">
-                <Calendar className="mr-2 h-5 w-5" />
                 Browse Events
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-base px-8">
+            <Button asChild size="lg" variant="outline" className="px-8">
               <Link href="/submit">
                 Submit Event
               </Link>
@@ -38,17 +36,14 @@ export function HeroSection() {
 
           {/* Feature Pills */}
           <div className="flex flex-wrap justify-center gap-4 pt-8">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-card border text-sm">
-              <Calendar className="h-4 w-4 text-primary" />
-              <span>Events</span>
+            <div className="px-4 py-2 rounded-full bg-card border text-sm">
+              Events
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-card border text-sm">
-              <Users className="h-4 w-4 text-primary" />
-              <span>People</span>
+            <div className="px-4 py-2 rounded-full bg-card border text-sm">
+              People
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-card border text-sm">
-              <MapPin className="h-4 w-4 text-primary" />
-              <span>Venues</span>
+            <div className="px-4 py-2 rounded-full bg-card border text-sm">
+              Venues
             </div>
           </div>
         </div>
