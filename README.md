@@ -1,4 +1,4 @@
-# LondonTechScenes
+# londonTechScenes
 
 A web app that aggregates London's tech community events, people, and venues into one central platform.
 

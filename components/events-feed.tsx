@@ -2,7 +2,6 @@ import { Event } from "@/types/event";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { format, parseISO } from "date-fns";
-import { Calendar, Clock, MapPin } from "lucide-react";
 import Link from "next/link";
 
 interface EventsFeedProps {
@@ -21,47 +20,40 @@ export function EventsFeed({ events }: EventsFeedProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (
             <Link key={event.id} href={`/events/${event.id}`}>
-              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <CardTitle className="text-xl line-clamp-2">{event.title}</CardTitle>
-                  </div>
-                  <CardDescription className="line-clamp-2">
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl mb-3 leading-tight">{event.title}</CardTitle>
+                  <CardDescription className="line-clamp-3 text-sm leading-relaxed">
                     {event.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pt-0">
                   {/* Event Details */}
                   <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Calendar className="h-4 w-4" />
-                      <span>{format(parseISO(event.date), "EEE, MMM d, yyyy")}</span>
+                    <div className="text-muted-foreground">
+                      {format(parseISO(event.date), "EEE, MMM d, yyyy")}
                     </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Clock className="h-4 w-4" />
-                      <span>
-                        {event.start_time}
-                        {event.end_time && ` - ${event.end_time}`}
-                      </span>
+                    <div className="text-muted-foreground">
+                      {event.start_time}
+                      {event.end_time && ` - ${event.end_time}`}
                     </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <MapPin className="h-4 w-4" />
-                      <span className="line-clamp-1">{event.venue}</span>
+                    <div className="text-muted-foreground">
+                      {event.venue}
                     </div>
                   </div>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">{event.type}</Badge>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    <Badge variant="secondary" className="text-xs">{event.type}</Badge>
                     {event.topics.map((topic) => (
-                      <Badge key={topic} variant="outline">
+                      <Badge key={topic} variant="outline" className="text-xs">
                         {topic}
                       </Badge>
                     ))}
                   </div>
 
                   {/* Host */}
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-muted-foreground pt-2 border-t">
                     Hosted by {event.host_name}
                   </div>
                 </CardContent>

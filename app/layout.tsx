@@ -5,7 +5,7 @@ import "./globals.css";
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
 export const metadata: Metadata = {
-  title: "LondonTechScenes - London's Tech Community Hub",
+  title: "londonTechScenes - London's Tech Community Hub",
   description: "Discover events, meet builders, and find venues in London's tech scene",
 };
 

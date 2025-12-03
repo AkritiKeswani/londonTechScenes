@@ -8,11 +8,7 @@ export function HeroSection() {
         <div className="text-center space-y-8">
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-            London&apos;s Tech Scene,
-            <br />
-            <span>
-              All in One Place
-            </span>
+            londonTechScenes
           </h1>
 
           {/* Subheading */}
