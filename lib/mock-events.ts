@@ -17,6 +17,8 @@ export const mockEvents: Event[] = [
     image_url: null,
     source: "luma",
     created_at: "2025-01-20T10:00:00Z",
+    approval_status: "approved",
+    approved_at: new Date(Date.now() - 21 * 60 * 60 * 1000).toISOString(), // 21 hours ago (past buffer)
   },
   {
     id: "2",
@@ -34,6 +36,8 @@ export const mockEvents: Event[] = [
     image_url: null,
     source: "luma",
     created_at: "2025-01-21T10:00:00Z",
+    approval_status: "approved",
+    approved_at: new Date(Date.now() - 21 * 60 * 60 * 1000).toISOString(), // 21 hours ago (past buffer)
   },
   {
     id: "3",
@@ -51,6 +55,27 @@ export const mockEvents: Event[] = [
     image_url: null,
     source: "manual",
     created_at: "2025-01-22T10:00:00Z",
+    approval_status: "approved",
+    approved_at: new Date(Date.now() - 21 * 60 * 60 * 1000).toISOString(), // 21 hours ago (past buffer)
+  },
+  {
+    id: "4",
+    title: "Claude Code Meetup London",
+    description: "Join a Claude Code Community Event, organized by local Claude Code enthusiasts for everyone who loves building with Claude Code! Join us for an evening supported by Anthropic, to catch up and compare notes on using Claude Code well beyond just coding. Discuss, demo, show off what you're making or ask others how to do what you wish was possible. We will provide food and drink, thanks to Anthropic! And thanks to MMC Ventures for hosting this time. Starts at 17:30 with mingling and food, followed by a welcome at 18:45, and a 30-minute live Q&A with Anthropic HQ at 19:00.",
+    date: "2025-02-05",
+    start_time: "17:30",
+    end_time: "21:00",
+    venue: "MMC Ventures (Location TBA)",
+    location: "London, England",
+    type: "meetup",
+    topics: ["AI", "Claude"],
+    host_name: "Claude Community Events",
+    registration_url: "https://luma.com/4z45zkng?tk=Rp2Cwe",
+    image_url: null,
+    source: "luma",
+    created_at: "2025-01-23T10:00:00Z",
+    approval_status: "approved",
+    approved_at: new Date(Date.now() - 21 * 60 * 60 * 1000).toISOString(), // 21 hours ago (past buffer)
   },
 ];
 

@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Lock } from "lucide-react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { submitEvent } from "@/lib/events";
 
 export default function SubmitEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,6 +31,7 @@ export default function SubmitEventPage() {
     setIsSubmitting(true);
 
     try {
+      // This should only be called if signed in, but double-check client-side
       // Parse topics from comma-separated string
       const topicsArray = formData.topics
         .split(",")
@@ -44,22 +46,18 @@ export default function SubmitEventPage() {
         end_time: formData.end_time || null,
         venue: formData.venue,
         location: formData.location,
-        type: formData.type,
+        type: formData.type as "hackathon" | "meetup" | "workshop" | "conference" | "networking",
         topics: topicsArray,
         host_name: formData.host_name,
         registration_url: formData.registration_url || null,
+        image_url: null,
         source: "manual" as const,
-        created_at: new Date().toISOString(),
       };
 
-      // Insert into Supabase (will fail gracefully if not configured)
-      const { error } = await supabase.from("events").insert([eventData]);
+      const result = await submitEvent(eventData);
 
-      if (error && error.message.includes("relation") && error.message.includes("does not exist")) {
-        // Database table doesn't exist yet - that's okay for now
-        console.log("Database table not set up yet. Event data:", eventData);
-      } else if (error) {
-        throw error;
+      if (!result.success) {
+        throw new Error(result.error || "Failed to submit event");
       }
 
       setIsSubmitted(true);
@@ -81,7 +79,7 @@ export default function SubmitEventPage() {
             </div>
             <CardTitle>Event Submitted!</CardTitle>
             <CardDescription>
-              Thank you for submitting your event. It will be reviewed and added to the platform soon.
+              Thank you for submitting your event. It will be reviewed and, if approved, will appear on the site after a 20-hour buffer period.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -124,6 +122,22 @@ export default function SubmitEventPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {/* Sign-in prompt for unsigned users */}
+            <SignedOut>
+              <div className="mb-6 p-4 bg-muted rounded-lg border border-border flex items-start gap-3">
+                <Lock className="h-5 w-5 text-muted-foreground mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium mb-1">Sign in required</p>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Please sign in to submit an event to the community.
+                  </p>
+                  <SignInButton mode="modal">
+                    <Button size="sm">Sign In</Button>
+                  </SignInButton>
+                </div>
+              </div>
+            </SignedOut>
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Title */}
               <div className="space-y-2">
@@ -284,9 +298,17 @@ export default function SubmitEventPage() {
               </div>
 
               {/* Submit Button */}
-              <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit Event"}
-              </Button>
+              <SignedIn>
+                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit Event"}
+                </Button>
+              </SignedIn>
+              <SignedOut>
+                <Button type="button" size="lg" className="w-full" disabled>
+                  <Lock className="mr-2 h-4 w-4" />
+                  Sign in to Submit
+                </Button>
+              </SignedOut>
             </form>
           </CardContent>
         </Card>

@@ -14,5 +14,7 @@ export interface Event {
   image_url: string | null;
   source: "luma" | "eventbrite" | "manual";
   created_at: string;
+  approval_status: "pending" | "approved" | "rejected";
+  approved_at: string | null;
 }
 
