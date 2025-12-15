@@ -32,13 +32,17 @@ export function HeroSection() {
 
           {/* Feature Pills */}
           <div className="flex flex-wrap justify-center gap-4 pt-8">
-            <div className="px-4 py-2 rounded-full bg-card border text-sm">
-              Events
-            </div>
-            <div className="px-4 py-2 rounded-full bg-card border text-sm">
-              People
-            </div>
-            <div className="px-4 py-2 rounded-full bg-card border text-sm">
+            <Link href="#events">
+              <div className="px-4 py-2 rounded-full bg-card border text-sm hover:bg-accent transition-colors cursor-pointer">
+                Events
+              </div>
+            </Link>
+            <Link href="/people">
+              <div className="px-4 py-2 rounded-full bg-card border text-sm hover:bg-accent transition-colors cursor-pointer">
+                People
+              </div>
+            </Link>
+            <div className="px-4 py-2 rounded-full bg-card border text-sm opacity-50">
               Venues
             </div>
           </div>
